@@ -62,22 +62,19 @@ class RS {
     if (prefs.get('reservations') != null) {
       List reservations = json.decode(prefs.get('reservations')) as List;
       reservations.add(data);
-      reservations.sort((a, b) {
-        var adate = a['date'];
-        var bdate = b['date'];
-        return bdate.compareTo(adate);
-      });
       prefs.setString('reservations', jsonEncode(reservations));
     } else {
       prefs.setString('reservations', jsonEncode(List.from([data])));
     }
   }
 
-  static Future removeReservation(data) async {
+  static Future removeReservation(i) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.get('reservations') != null) {
-      List reservations = List.from(jsonDecode(prefs.get('reservations')));
-      reservations.remove(data);
+      final List reservations =
+          List.from(jsonDecode(prefs.get('reservations')));
+      reservations.removeAt(i);
+      print(reservations.length);
       prefs.setString('reservations', jsonEncode(reservations));
       // courtsProvider.set(courts)
     }

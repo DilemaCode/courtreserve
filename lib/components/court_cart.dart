@@ -10,7 +10,8 @@ class CourtCart extends StatefulWidget {
   Map data;
   Map realData;
   Key key;
-  CourtCart({key, this.type, this.data, this.index}) : super(key: key);
+  CourtCart({key, this.type, this.realData, this.data, this.index})
+      : super(key: key);
   @override
   _CourtCartState createState() => _CourtCartState();
 }
@@ -47,13 +48,7 @@ class _CourtCartState extends State<CourtCart> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
-    return Dismissible(
-      direction: null,
-      key: Key(isCourt ? widget.data["courtId"] : widget.index.toString()),
-      confirmDismiss: (d) async {
-        return await _showConfirmation(context, "Delete") == true;
-      },
-      child: Container(
+    return Container(
         padding: EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
             border:
@@ -130,35 +125,8 @@ class _CourtCartState extends State<CourtCart> {
               ],
             )
           ],
-        ),
       ),
     );
   }
 
-  Future<bool> _showConfirmation(BuildContext context, String action) {
-    return showDialog<bool>(
-        context: context,
-        barrierDismissible: true,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("Delete"),
-            content: Text("Are you sure?"),
-            actions: [
-              RaisedButton(
-                onPressed: () {
-                  final rp = Provider.of<ReservationsProvider>(context);
-                  rp.remove(widget.realData).then((res) {
-                    Navigator.pop(context, true);
-                  });
-                },
-                child: Text("Delete"),
-              ),
-              RaisedButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: Text("Cancel"),
-              )
-            ],
-          );
-        });
-  }
 }

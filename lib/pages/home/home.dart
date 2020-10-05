@@ -42,15 +42,47 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               itemCount: res.reservations.length,
               itemBuilder: (BuildContext context, int i) {
-                Map data = res.reservations[i];
-
-                data = {
-                  ...data,
-                  ...cp.courts.firstWhere((e) => data['courtId'] == e['id'])
+                Map realData = res.reservations[i];
+                Map data = {
+                  ...cp.courts
+                      .firstWhere((e) => realData['courtId'] == e['id']),
+                  ...realData,
                 };
-                return CourtCart(type: 1, index: i, data: data);
+                return Dismissible(
+                    direction: DismissDirection.endToStart,
+                    key: Key(realData['id']),
+                    confirmDismiss: (d) async {
+                      return await _showConfirmation(context, "Delete", i) ==
+                          true;
+                    },
+                    child: CourtCart(type: 1, index: i, data: data));
               },
             );
     });
+  }
+
+  Future<bool> _showConfirmation(BuildContext context, String action, int i) {
+    return showDialog<bool>(
+        context: context,
+        builder: (context) {
+          final rp = Provider.of<ReservationsProvider>(context);
+          return AlertDialog(
+            title: Text("Delete"),
+            content: Text("Are you sure?"),
+            actions: [
+              RaisedButton(
+                onPressed: () async {
+                  rp.remove(i);
+                  Navigator.pop(context, true);
+                },
+                child: Text("Delete"),
+              ),
+              RaisedButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text("Cancel"),
+              )
+            ],
+          );
+        });
   }
 }

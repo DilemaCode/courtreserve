@@ -20,7 +20,7 @@ class ReservationsProvider extends ChangeNotifier {
     reservations.sort((a, b) {
       var adate = a['date'];
       var bdate = b['date'];
-      return bdate.compareTo(adate);
+      return adate.compareTo(bdate);
     });
   }
 
@@ -31,10 +31,10 @@ class ReservationsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future remove(Map data) async {
-    reservations.remove(data);
-    await RS.removeReservation(data);
+  remove(int i) async {
+    reservations.remove(i);
     notifyListeners();
+    RS.removeReservation(i);
     return "ok";
   }
 }

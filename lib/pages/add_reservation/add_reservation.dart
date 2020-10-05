@@ -173,7 +173,9 @@ class _AddCourtState extends State<AddCourt> {
           print(_name.text);
           print(_date.text);
           print(courtId);
+          var uuid = new UniqueKey();
           rp.add({
+            "id": uuid.toString(),
             "courtId": courtId,
             "date": selectedDate.millisecondsSinceEpoch,
             "player": _name.text,
