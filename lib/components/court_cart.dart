@@ -1,11 +1,14 @@
+import 'package:courtreserve/providers/reservations_provider.dart';
 import 'package:courtreserve/services/weatherRest.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class CourtCart extends StatefulWidget {
   int type;
   int index;
   Map data;
+  Map realData;
   Key key;
   CourtCart({key, this.type, this.data, this.index}) : super(key: key);
   @override
@@ -24,11 +27,13 @@ class _CourtCartState extends State<CourtCart> {
     setState(() {
       isCourt = widget.type == 0;
     });
-    var picked = DateTime(widget.data['date']);
-    date = "${picked.day}/${picked.month}/${picked.year}";
 
     if (!isCourt) {
-      RestWeather.latlon(widget.data['geo'], widget.data['date'].toString()).then((value) {
+      DateTime picked =
+          DateTime.fromMillisecondsSinceEpoch(widget.data['date']);
+      date = "${picked.day}/${picked.month}/${picked.year}";
+      RestWeather.latlon(widget.data['geo'], widget.data['date'].toString())
+          .then((value) {
         print(value);
         setState(() {
           weather = value;
@@ -43,7 +48,8 @@ class _CourtCartState extends State<CourtCart> {
     height = MediaQuery.of(context).size.height;
 
     return Dismissible(
-      key: Key(widget.index.toString()),
+      direction: null,
+      key: Key(isCourt ? widget.data["courtId"] : widget.index.toString()),
       confirmDismiss: (d) async {
         return await _showConfirmation(context, "Delete") == true;
       },
@@ -140,8 +146,10 @@ class _CourtCartState extends State<CourtCart> {
             actions: [
               RaisedButton(
                 onPressed: () {
-                  //  provider_reserved.remove(data)
-                  Navigator.pop(context, true);
+                  final rp = Provider.of<ReservationsProvider>(context);
+                  rp.remove(widget.realData).then((res) {
+                    Navigator.pop(context, true);
+                  });
                 },
                 child: Text("Delete"),
               ),

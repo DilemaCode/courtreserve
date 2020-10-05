@@ -1,7 +1,7 @@
 import 'package:courtreserve/app.dart';
 import 'package:courtreserve/pages/add_reservation/add_reservation.dart';
-import 'package:courtreserve/providers/courts.dart';
-import 'package:courtreserve/providers/reservations.dart';
+import 'package:courtreserve/providers/courts_provider.dart';
+import 'package:courtreserve/providers/reservations_provider.dart';
 import 'package:courtreserve/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
             create: (_) => ReservationsProvider())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Court Reservation',
         theme: ThemeData(
           primaryColor: Colors.white,

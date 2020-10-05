@@ -16,7 +16,7 @@ class RS {
     List res = [];
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.get('courts') == null) {
-      await defaultCourtsData().then((value) => res.addAll(value));
+      res.addAll(List.from(defaultCourtsData()));
     } else {
       print("getReservations isnt null");
       res = List.from(jsonDecode(prefs.get('courts')));
@@ -57,7 +57,7 @@ class RS {
     return res;
   }
 
-  static Future addReserve(data) async {
+  static Future addReservation(data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.get('reservations') != null) {
       List reservations = json.decode(prefs.get('reservations')) as List;
@@ -73,7 +73,7 @@ class RS {
     }
   }
 
-  static Future removeReserve(data) async {
+  static Future removeReservation(data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.get('reservations') != null) {
       List reservations = List.from(jsonDecode(prefs.get('reservations')));
@@ -83,8 +83,8 @@ class RS {
     }
   }
 
-  static Future defaultCourtsData() async {
-    List<Map<String, dynamic>> _courts = List.from([
+  static defaultCourtsData() {
+    List _courts = List.from([
       {
         "id": "A",
         "name": "Rod Laver Arena",

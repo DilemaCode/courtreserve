@@ -27,22 +27,14 @@ class ReservationsProvider extends ChangeNotifier {
   void add(data) {
     reservations.add(data);
     sort();
-    RS.addReserve(data);
+    RS.addReservation(data);
     notifyListeners();
   }
 
-  void remove(Map data) {
+  Future remove(Map data) async {
     reservations.remove(data);
+    await RS.removeReservation(data);
     notifyListeners();
-  }
-
-  void removeAt(int i) {
-    reservations.removeAt(i);
-    notifyListeners();
-  }
-
-  void clear() {
-    reservations.clear();
-    notifyListeners();
+    return "ok";
   }
 }

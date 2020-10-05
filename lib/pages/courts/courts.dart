@@ -1,5 +1,5 @@
 import 'package:courtreserve/components/court_cart.dart';
-import 'package:courtreserve/providers/courts.dart';
+import 'package:courtreserve/providers/courts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

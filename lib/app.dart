@@ -1,7 +1,7 @@
 import 'package:courtreserve/pages/courts/courts.dart';
 import 'package:courtreserve/pages/home/home.dart';
-import 'package:courtreserve/providers/courts.dart';
-import 'package:courtreserve/providers/reservations.dart';
+import 'package:courtreserve/providers/courts_provider.dart';
+import 'package:courtreserve/providers/reservations_provider.dart';
 import 'package:courtreserve/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class _AppState extends State<App> {
       _pageIndex = i;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -47,7 +47,7 @@ class _AppState extends State<App> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Court Reserve"),
+        title: Text(_pageIndex == 0 ? "Court Reserve" : "Courts"),
       ),
       body: _pages.elementAt(_pageIndex),
       floatingActionButton: FloatingActionButton(

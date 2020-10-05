@@ -1,6 +1,6 @@
 import 'package:courtreserve/components/court_cart.dart';
-import 'package:courtreserve/providers/courts.dart';
-import 'package:courtreserve/providers/reservations.dart';
+import 'package:courtreserve/providers/courts_provider.dart';
+import 'package:courtreserve/providers/reservations_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,10 +18,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    // Rest.getWeather(
-    //   lat: "18.481522",
-    //   lon: "-69.7972878",
-    // ).then((value) => print(value));
     // clear();
   }
 
