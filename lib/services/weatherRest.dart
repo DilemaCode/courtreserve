@@ -5,13 +5,18 @@ import 'package:http/http.dart' as http;
 
 class RestWeather {
   RestWeather._();
-  static Future latlon(List geo) async {
+  static Future latlon(List geo, String date) async {
+  
+    // date = DateTime;
+    // DateTime.parse(date).millisecondsSinceEpoch
     final response = await http.get(
-      'http://api.openweathermap.org/data/2.5/weather?lat=${geo[0].toString()}&lon=${geo[1].toString()}&appid=72a2d60b0ea627a3080fa43030c717dc',
+      // 'http://api.openweathermap.org/data/2.5/weather?lat=${geo[0].toString()}&lon=${geo[1].toString()}&start=$_date&end=$_date&appid=72a2d60b0ea627a3080fa43030c717dc',
+      'http://api.openweathermap.org/data/2.5/weather?lat=${geo[0].toString()}&lon=${geo[1].toString()}&$date&appid=72a2d60b0ea627a3080fa43030c717dc',
     );
     if (response.statusCode == 200) {
       Map data = Map.from(json.decode(response.body));
-      return data['weather'][0]['description'];
+      // return data['weather'][0]['description'];
+      return "weather";
     } else {
       throw Exception('error');
     }

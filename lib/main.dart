@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
             create: (_) => ReservationsProvider())
       ],
       child: MaterialApp(
-        title: 'Court Reserve',
+        title: 'Court Reservation',
         theme: ThemeData(
           primaryColor: Colors.white,
           accentColor: AppColors.green,

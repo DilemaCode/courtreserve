@@ -65,7 +65,7 @@ class RS {
       reservations.sort((a, b) {
         var adate = a['date'];
         var bdate = b['date'];
-        return adate.compareTo(bdate);
+        return bdate.compareTo(adate);
       });
       prefs.setString('reservations', jsonEncode(reservations));
     } else {

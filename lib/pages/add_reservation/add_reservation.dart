@@ -27,7 +27,7 @@ class _AddCourtState extends State<AddCourt> {
     width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          title: Text("Reserve"),
+          title: Text("Reservation"),
         ),
         body: _widgetForm(context));
   }
@@ -109,13 +109,14 @@ class _AddCourtState extends State<AddCourt> {
 
   Widget _widgetDropdown(context) {
     final cp = Provider.of<CourtsProvider>(context);
+    final rp = Provider.of<ReservationsProvider>(context);
 
     return DropdownButtonFormField(
       validator: (v) {
         if (v.length == 0) {
           return "Select a court";
         }
-        if (canReserve) {
+        if (!canReserve) {
           return "This court has reached the limit of players";
         }
         return null;
@@ -124,15 +125,22 @@ class _AddCourtState extends State<AddCourt> {
       itemHeight: 70,
       value: null,
       onChanged: (e) {
-        // if (rp.reservations.where((el) => el["id"] == courtId).length == 3) {
-        //   setState(() {
-        //     canReserve = false;
-        //   });
-        // } else {
-        //   setState(() {
-        //     canReserve = true;
-        //   });
-        // }
+        List _list = rp.reservations
+            .where((el) => el["courtId"] == courtId && el["date"] == _date.text)
+            .toList();
+        print("in the same day");
+        print(_list.length);
+        if (_list.length == 3) {
+          print("Limited");
+          setState(() {
+            canReserve = false;
+          });
+        } else {
+          print("canReserve");
+          setState(() {
+            canReserve = true;
+          });
+        }
       },
       items: cp.courts
           .map((e) => DropdownMenuItem(
@@ -164,12 +172,13 @@ class _AddCourtState extends State<AddCourt> {
         if (_formKey.currentState.validate()) {
           print(_name.text);
           print(_date.text);
-
+          print(courtId);
           rp.add({
             "courtId": courtId,
-            "date": _date.text,
-            "user": _name.text,
+            "date": selectedDate.millisecondsSinceEpoch,
+            "player": _name.text,
           });
+          Navigator.pop(context);
         }
       },
       child: Container(

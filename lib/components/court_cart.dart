@@ -17,15 +17,18 @@ class _CourtCartState extends State<CourtCart> {
   double height;
   bool isCourt;
   String weather = '';
-
+  String date;
   @override
   void initState() {
     super.initState();
     setState(() {
       isCourt = widget.type == 0;
     });
+    var picked = DateTime(widget.data['date']);
+    date = "${picked.day}/${picked.month}/${picked.year}";
+
     if (!isCourt) {
-      RestWeather.latlon(widget.data['geo']).then((value) {
+      RestWeather.latlon(widget.data['geo'], widget.data['date'].toString()).then((value) {
         print(value);
         setState(() {
           weather = value;
@@ -71,7 +74,7 @@ class _CourtCartState extends State<CourtCart> {
                   child: isCourt
                       ? null
                       : Text(
-                          widget.data['date'],
+                          widget.data["player"],
                           style: TextStyle(
                             fontSize: 16,
                           ),
@@ -100,7 +103,7 @@ class _CourtCartState extends State<CourtCart> {
                               size: 18,
                             ),
                             SizedBox(width: 2),
-                            Text(widget.data['date'],
+                            Text(date,
                                 style: TextStyle(
                                   fontSize: 12,
                                 )),
