@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "499545897815",
+    "firebase_url": "https://courtreserve-e10e1.firebaseio.com",
+    "project_id": "courtreserve-e10e1",
+    "storage_bucket": "courtreserve-e10e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499545897815:android:eb02f5bd53257a50451c12",
+        "android_client_info": {
+          "package_name": "com.example.courtreserve"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499545897815-7qsihrse5d0b8pc9st0foouvc9k0r2ou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZZAn82YSR5l1uIyrZD2HvICxrsW8IGwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499545897815-7qsihrse5d0b8pc9st0foouvc9k0r2ou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
